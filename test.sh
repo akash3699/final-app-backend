@@ -1,23 +1,21 @@
-FROM node
+#!/bin/bash
 
-# set the work directory
-WORKDIR /app
+# download the node modules
+# npm install
 
-# RUN: executes the command(s) while building the image
-# install npm
-# RUN apt-get update
-# RUN apt-get install npm
-# RUN apt-get update && apt-get install npm nodejs -y
+# remove the container if exists or running 
+if [ $(docker container ls -q -a --filter name=my_app_backend_container) != '' ]; then
+    docker container stop my_app_backend_container
+    docker container rm my_app_backend_container
+fi
 
-# copy all the files including node_modules directory
-COPY . .
+# remove the image if exists
+if [ $(docker image ls -q --filter reference=my_app_backend) != '' ]; then
+    docker image rm my_app_backend
+fi
 
-# install npm
-RUN npm install
+# build the image
+docker build -t my_app_backend .
 
-# EXPOSE PORT 4000
-EXPOSE 4000
-
-# RUN: executes the command(s) while starting the container
-# start the express server
-CMD node server.js
+# start the container
+docker run -itd -p 4000:4000 --name my_app_backend_container my_app_backend
