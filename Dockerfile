@@ -1,4 +1,4 @@
-FROM my_node_image
+FROM node
 
 # set the work directory
 WORKDIR /app
