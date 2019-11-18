@@ -10,7 +10,7 @@ if [ $(docker container ls -q -a --filter name=my_app_backend_container) != '' ]
 fi
 
 # remove the image if exists
-if [ $(docker image ls -q --filter reference=my_app_backend) != '' ]; then
+if [ $(docker image ls -a -q --filter reference=my_app_backend) != '' ]; then
     docker image rm my_app_backend
 fi
 

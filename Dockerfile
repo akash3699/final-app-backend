@@ -1,4 +1,4 @@
-FROM node
+FROM 200.0.1.100:5000/node
 
 # set the work directory
 WORKDIR /app
